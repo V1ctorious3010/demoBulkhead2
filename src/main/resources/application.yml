@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 8        # giảm mạnh số servlet threads để dễ nghẽn
+    accept-count: 50
+
+resilience4j:
+  thread-pool-bulkhead:
+    instances:
+      slowPool:
+        coreThreadPoolSize: 2
+        maxThreadPoolSize: 2
+        queueCapacity: 0     # không xếp hàng để thấy từ chối ngay
+        keepAliveDuration: 10s
