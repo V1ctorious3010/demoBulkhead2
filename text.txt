@@ -3,7 +3,11 @@ cd "E:\xampp\apache\bin"
 Measure-Command { Invoke-WebRequest http://localhost:8080/fast | Out-Null }
 
 cmd:
-ab -n 500 -c 100 http://localhost:8080/slow-no-bulkhead
-ab -n 500 -c 100 http://localhost:8080/slow
+cd /d E:\xampp\apache\bin
+ab -n 40 -c 20 http://localhost:8080/slow-no-bulkhead
+ab -n 40 -c 20 http://localhost:8080/slow
 
-terminal: mvn spring-boot:run
+ab -n 40 -c 20 http://localhost:8080/fast
+
+terminal:
+mvn spring-boot:run

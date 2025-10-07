@@ -16,14 +16,12 @@ public class ApiController {
         return "FAST OK";
     }
 
-    // Chậm KHÔNG bulkhead -> GIỮ servlet thread 5s
     @GetMapping("/slow-no-bulkhead")
     public String slowNoBulkhead() {
         try { Thread.sleep(5000); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
         return "SLOW NOBH OK";
     }
 
-    // Chậm CÓ bulkhead -> TRẢ servlet thread NGAY, chạy trong pool riêng
     @Bulkhead(name = "slowPool", type = Bulkhead.Type.THREADPOOL)
     @GetMapping("/slow")
     public CompletionStage<String> slow() {
